@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Munagapati Bhargav | Portfolio</title>
+  <!-- Animate On Scroll CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+  <!-- Devicon for skill logos -->
+  <link href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.14.0/devicon.min.css" rel="stylesheet">
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-dark: #3730a3;
+      --accent: #14b8a6;
+      --accent-light: #99f6e4;
+      --background: #f5f7fa;
+      --section-bg: #fff;
+      --card-bg: #f1f5f9;
+      --text: #18181b;
+      --footer-bg: #27272a;
+    }
+    html {scroll-behavior:smooth;}
+    body, h1, h2, h3 { font-family: 'Inter', sans-serif; }
+    body { margin:0; background:var(--background); color:var(--text); line-height:1.65; font-size:17px; }
+
+    h1, h2, h3 { font-weight:700; }
+    h1 {font-size:2.4rem;}
+    h2 {font-size:1.9rem; color:var(--primary); margin-bottom:0.6em; border-bottom:2.3px solid var(--accent); padding-bottom:7px; display:inline-block;}
+    h3 {font-size:1.25rem;margin:1.5rem 0 1rem;}
+
+    .container {max-width:950px; margin:0 auto; padding:0 1.2rem;}
+    section {padding:70px 0 60px 0; background:var(--section-bg);}
+    @media(max-width:680px){ section {padding:44px 0 30px 0;} }
+
+    /* Top-right controls */
+    .top-right-controls {
+      position: fixed;
+      top: 20px; right: 20px;
+      display: flex; gap: 13px; z-index: 3500;
+    }
+    .btn-dark-toggle, .menu-btn {
+      background: var(--primary-dark);
+      color: #fff;
+      border:none;
+      border-radius: 50%;
+      width: 46px; height: 46px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.19);
+      display:flex; align-items:center; justify-content:center;
+      cursor:pointer; transition: background 0.3s;
+      font-size:26px;
+    }
+    .btn-dark-toggle:hover, .menu-btn:hover {background: var(--primary);}
+    .btn-dark-toggle svg {width:22px;height:22px;fill:currentColor;}
+
+    .menu-btn { border-radius:6px; }
+
+    /* Side Drawer */
+    .side-drawer {
+      display: flex; flex-direction: column;
+      position: fixed; top: 0; right: 0;
+      width: 230px; height: 100vh;
+      background: var(--card-bg);
+      box-shadow: -2px 0 24px rgba(40,42,68,0.15);
+      padding: 90px 20px 20px 20px;
+      font-weight: 700; font-size: 1.1rem; color: var(--primary-dark);
+      z-index: 3400;
+      transform: translateX(110%);
+      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+    .side-drawer.open {transform: translateX(0);}
+    .side-drawer a {
+      text-decoration: none; color: var(--primary-dark);
+      padding: 14px 0; border-left: 4px solid transparent;
+      transition: border-color 0.25s, color 0.25s;
+      font-size:1.08rem;
+    }
+    .side-drawer a:hover {color:var(--accent); border-left-color:var(--accent);}
+    .side-drawer .close-btn {
+      position: absolute; top: 14px; right: 18px;
+      background: transparent; border:none; font-size: 2.2rem;
+      color: var(--accent); cursor: pointer; line-height: 1;
+    }
+
+    /* Drawer backdrop */
+    .drawer-backdrop {
+      display: none; position: fixed; inset: 0;
+      background: rgba(50,30,80,0.18); z-index: 3300;
+    }
+    .drawer-backdrop.show { display: block; }
+
+    header.hero-section {
+      background: linear-gradient(114deg, var(--accent) 14%, var(--primary) 100%);
+      color: #fff; padding: 70px 0 54px;
+      box-shadow: 0 8px 32px -26px var(--accent-light);
+    }
+    .hero-content {display:flex;gap:48px;align-items:center;flex-wrap:wrap;justify-content:center;}
+    .avatar {width:190px;height:190px;border-radius:50%;object-fit:cover;box-shadow:0 4px 33px rgba(80,44,120,0.18);border:6px solid var(--card-bg);}
+    .hero-section h1 {margin-bottom:7px;}
+    .subtitle {font-style:italic;font-weight:500;font-size:1.17rem;opacity:0.95;margin-bottom:1.08rem;}
+    .social-icons {display:flex;gap:21px;justify-content:flex-start;margin-bottom:8px;}
+    .social-icons a {color:#fff;font-size:2.12rem;transition:color 0.24s,background 0.19s;background:var(--accent); border-radius:50%; width:46px; height:46px; display:flex; align-items:center; justify-content:center;}
+    .social-icons a:hover {color:var(--accent);background:#fff;}
+
+    @media(max-width:800px){
+      .hero-content{flex-direction:column;gap:19px;}
+      .social-icons{justify-content:center;}
+    }
+    .about-section {padding-top:60px;text-align:center;}
+    .about-card {background:var(--card-bg);border-radius:1rem;box-shadow:0 2px 19px rgba(62,44,120,0.06);max-width:700px;margin:0 auto;padding:32px 22px;}
+    .about-card i {color:var(--accent);font-size:2.5rem;margin-bottom:11px;}
+    .education-section {background: var(--background);}
+    .edu-timeline {display:flex;flex-wrap:wrap;gap:26px;justify-content:center;}
+    .edu-card {background:var(--card-bg);border-left:5px solid var(--primary-dark);border-radius:13px;min-width:260px;max-width:340px;padding:19px 20px;box-shadow:0 1px 13px rgba(128,90,213,0.11);}
+    .edu-card h4 {color:var(--primary-dark);margin-bottom:4px;}
+    .edu-card span {display:block;margin-bottom:7px;font-size:1rem;font-style:italic;color:#444;}
+    .edu-score {color:var(--accent);font-weight:700;}
+    .skills-section {background: var(--background);}
+    .skill-category-title {color: var(--primary);font-size:1.13rem;font-weight:700;margin-bottom:.7rem;margin-top:2rem;}
+    .skills-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:22px;justify-items:center;margin-bottom:2.1rem;margin-top:1.1rem;}
+    .skill-item {background: #fff; border-radius:0.99rem;padding:18px 6px 12px;text-align:center; box-shadow:0 2px 10px rgba(56,178,172,0.07);min-width:92px;max-width:119px;}
+    .skill-item:hover {box-shadow:0 7px 30px 0 var(--accent-light);transform:translateY(-7px) scale(1.045);}
+    .skill-item i {font-size:2.2rem;margin-bottom:10px;}
+    .skill-item span {display:block;font-size:1.03rem;font-weight:600;color:var(--accent);}
+    @media(max-width:700px){ .skills-grid{grid-template-columns: repeat(2,minmax(120px,1fr));} }
+    .projects-section {background: var(--section-bg);}
+    .projects-list {display:flex;flex-wrap:wrap;gap:27px;justify-content:center;}
+    .project-card {background:#fff;border-left:6px solid var(--primary);border-radius:14px;box-shadow:0 2px 11px rgba(46,178,172,0.10);padding:22px 24px 12px 24px;max-width:321px;min-width:220px;}
+    .project-card h4 {color:var(--primary);margin-bottom:7px;}
+    .project-type {display:inline-block;background:var(--accent);color:#fff;border-radius:7px;font-size:0.97rem;padding:3px 14px;margin-bottom:10px;}
+    .contact-section {background:var(--section-bg);}
+    .contact-form {max-width:490px;margin:0 auto;padding:33px 20px;background:#fff;border-radius:13px;box-shadow:0 1px 8px rgba(128,90,213,0.10);text-align:left;}
+    .contact-form label{font-weight:600;margin-bottom:4px;display:block;}
+    .contact-form input, .contact-form textarea {border:1px solid var(--primary-dark);border-radius:7px;padding:10px;margin-bottom:15px;width:100%;}
+    .contact-form textarea {min-height:95px;}
+    .contact-form button {margin-top:12px;margin-left:1px;font-size:1.14rem;}
+    .required-star {color:red;margin-left:3px;}
+    footer.footer-section {background:var(--footer-bg);color:#fff;padding:22px 0 10px 0;text-align:center;font-size:0.99rem;}
+    @media(max-width:700px){
+      section {padding:37px 0 20px 0;}
+      .projects-list, .skills-grid, .edu-timeline {gap:14px;}
+      .project-card, .edu-card {max-width:95vw;}
+    }
+    /* Dark mode specifics */
+    body.dark-mode {
+      background: #181823; color: #d3d8dd;
+    }
+    body.dark-mode h2, body.dark-mode .skill-category-title {color:#53e0d9; border-color:#aaa;}
+    body.dark-mode .btn-dark-toggle, body.dark-mode .menu-btn {background:#2821c6;}
+    body.dark-mode .btn-dark-toggle:hover, body.dark-mode .menu-btn:hover {background:#14b8a6;}
+    body.dark-mode header.hero-section {background:linear-gradient(115deg, #0dcab7 17%, #4644ce 98%);}
+    body.dark-mode .about-section,body.dark-mode .skills-section,body.dark-mode .projects-section,body.dark-mode .contact-section{background:#1b2132;}
+    body.dark-mode .about-card,body.dark-mode .edu-card,body.dark-mode .skill-item,body.dark-mode .project-card,body.dark-mode .contact-form{background:#222c42;color:#e8eefa;}
+    body.dark-mode .about-card i,body.dark-mode .edu-card h4,body.dark-mode .project-card h4,body.dark-mode .skill-item span{color:#9ffdfa;}
+    body.dark-mode .edu-card span {color:#aad1eb;}
+    body.dark-mode .edu-score {color: #7bffe9;}
+    body.dark-mode .projects-section .project-type {background:#53e0d9;}
+    body.dark-mode .skill-item:hover {box-shadow:0 7px 25px 0 #4644ce;}
+    body.dark-mode footer.footer-section {background:#111828;}
+    body.dark-mode .social-icons a {background: var(--accent); color: #fff;}
+    body.dark-mode .social-icons a:hover {background:#fff; color:var(--accent);}
+    body.dark-mode .side-drawer {background:#202038;}
+    body.dark-mode .side-drawer a {color:#80f2e9;}
+    body.dark-mode .side-drawer a:hover {color:#fff;}
+    body.dark-mode .drawer-backdrop {background:rgba(32,40,60,0.32);}
+  </style>
+</head>
+<body>
+
+  <!-- Top Right Controls (dark mode, menu) -->
+  <div class="top-right-controls">
+    <button class="btn-dark-toggle" aria-label="Toggle dark mode" title="Toggle dark mode" aria-pressed="false" id="dark-mode-toggle">
+      <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.752 15.002A9 9 0 0112 3a9 9 0 109.752 12.002z"/></svg>
+      <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" style="display:none;"><circle cx="12" cy="12" r="5"/><g stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></g></svg>
+    </button>
+    <button class="menu-btn" aria-label="Open menu" id="menu-toggle">
+      <i class="fa-solid fa-bars" aria-hidden="true"></i>
+    </button>
+  </div>
+  <!-- Side Drawer + Backdrop -->
+  <div id="drawer-backdrop" class="drawer-backdrop"></div>
+  <nav id="side-drawer" class="side-drawer" aria-label="Navigation menu">
+    <button class="close-btn" aria-label="Close menu" id="drawer-close">&times;</button>
+    <a href="#about">About</a>
+    <a href="#education">Education</a>
+    <a href="#skills">Technical Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero-section" data-aos="fade-down">
+    <div class="hero-content container">
+      <img src="bhargav.jpg" alt="Munagapati Bhargav" class="avatar" />
+      <div style="max-width:490px">
+        <h1>Munagapati Bhargav</h1>
+        <div class="subtitle">
+          Final Year B.E Computer Science Student, SIMATS Engineering, Chennai
+        </div>
+        <p>
+          A passionate and quick learner with strong analytical skills, leveraging technology to create impactful solutions. Proficient in Java and full-stack web projects.
+        </p>
+        <div class="social-icons">
+          <a href="https://github.com/BHARGAV-1375" target="_blank" rel="noopener noreferrer" title="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/bhargav-munagapati-8029a6275/" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+          <a href="https://drive.google.com/file/d/1NJw5cfbWl51Q4gN6C_JSE78mVz0CNaRQ/view?usp=sharing" target="_blank" rel="noopener noreferrer" title="Resume"><i class="fa-solid fa-file-lines"></i></a>
+          <a href="mailto:bhargavmunagapati39@gmail.com" target="_blank" rel="noopener noreferrer" title="Gmail"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- About -->
+  <section class="about-section container" id="about" data-aos="fade-up">
+    <h2>About Me</h2>
+    <div class="about-card">
+      <i class="fas fa-user-graduate"></i>
+      <p>
+        I’m a passionate technology enthusiast who thrives on turning curiosity into knowledge. I love challenges—whether it’s crafting efficient code in Java or C, experimenting with web and mobile interfaces, or building robust databases in MySQL.
+      </p>
+      <p>
+        My hands-on experience with modern tools like Figma helps transform concepts into prototypes, while my analytical mindset ensures practical outcomes. I’m motivated by continuous learning and quickly adapt to new technologies in this dynamic digital world.
+      </p>
+      <p>
+        Collaborative and open-minded, I value teamwork and clear communication, aiming to bridge the gap between innovation and user needs.
+      </p>
+    </div>
+  </section>
+
+  <!-- Education -->
+  <section class="education-section container" id="education" data-aos="fade-right">
+    <h2>Education</h2>
+    <div class="edu-timeline">
+      <div class="edu-card">
+        <h4>Bachelor of Engineering in Computer Science</h4>
+        <span>SIMATS Engineering, Chennai (Sept 2021 - May 2025)</span>
+        <div class="edu-score">CGPA: 8.3/10</div>
+      </div>
+      <div class="edu-card">
+        <h4>Higher Secondary Certificate (HSC)</h4>
+        <span>Aditya Junior College, Vijayawada (June 2019 - May 2021)</span>
+        <div class="edu-score">Percentage: 83.2%</div>
+      </div>
+      <div class="edu-card">
+        <h4>Secondary School Certificate (SSC)</h4>
+        <span>Sri Chaitanya EM School, Singarayakonda (June 2018 - May 2019)</span>
+        <div class="edu-score">CGPA: 9.0/10</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section class="skills-section container" id="skills" data-aos="fade-up">
+    <h2>Technical Skills</h2>
+    <h3 class="skill-category-title">Programming Languages</h3>
+    <div class="skills-grid" aria-label="Programming Languages">
+      <div class="skill-item"><i class="devicon-java-plain colored"></i><span>Java</span></div>
+      <div class="skill-item"><i class="devicon-c-plain colored"></i><span>C</span></div>
+    </div>
+    <h3 class="skill-category-title">Web Development</h3>
+    <div class="skills-grid" aria-label="Web Development">
+      <div class="skill-item"><i class="devicon-html5-plain colored"></i><span>HTML5</span></div>
+      <div class="skill-item"><i class="devicon-css3-plain colored"></i><span>CSS3</span></div>
+      <div class="skill-item"><i class="devicon-javascript-plain colored"></i><span>JavaScript</span></div>
+      <div class="skill-item"><i class="devicon-php-plain colored"></i><span>PHP</span></div>
+    </div>
+    <h3 class="skill-category-title">Database</h3>
+    <div class="skills-grid" aria-label="Database">
+      <div class="skill-item"><i class="devicon-mysql-plain colored"></i><span>MySQL</span></div>
+    </div>
+    <h3 class="skill-category-title">Mobile Development</h3>
+    <div class="skills-grid" aria-label="Mobile Development">
+      <div class="skill-item"><i class="devicon-react-original colored"></i><span>React.js</span></div>
+    </div>
+    <h3 class="skill-category-title">Tools</h3>
+    <div class="skills-grid" aria-label="Tools">
+      <div class="skill-item"><i class="devicon-figma-plain colored"></i><span>Figma</span></div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section class="projects-section" id="projects" data-aos="fade-left">
+    <div class="container">
+      <h2>Projects</h2>
+      <div class="projects-list">
+        <div class="project-card">
+          <h4>OwN TiCKETS</h4>
+          <span class="project-type">Web App</span>
+          <ul>
+            <li>Built with PHP, HTML, CSS, and MySQL.</li>
+            <li>Browse movies, view showtimes, and pick seats online.</li>
+            <li>Seat availability updates instantly as bookings happen.</li>
+            <li>User-friendly and fully responsive.</li>
+          </ul>
+        </div>
+        <div class="project-card">
+          <h4>Hygiene Status Monitoring System</h4>
+          <span class="project-type">IoT Solution</span>
+          <ul>
+            <li>Uses MQ5 gas sensor and ESP8266 for real-time monitoring.</li>
+            <li>Blynk app integration sends instant alerts to your phone.</li>
+            <li>Detects indoor air hazards early.</li>
+          </ul>
+        </div>
+        <div class="project-card">
+          <h4>Eye Disease Detection using Machine Learning</h4>
+          <span class="project-type">Machine Learning</span>
+          <ul>
+            <li>Analyzes eye data via SVM, Random Forest, Decision Tree, KNN, Naive Bayes.</li>
+            <li>Compares ML models to maximize prediction accuracy.</li>
+            <li>Handles all preprocessing and evaluation steps.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <<!-- Contact Section -->
+<section class="contact-section container" id="contact" data-aos="zoom-in-up">
+  <h2><i class="fa-solid fa-paper-plane" style="color:var(--primary);margin-right:13px;"></i>Contact Me</h2>
+  <div class="contact-flexbox">
+    <div class="contact-social">
+      <p style="font-size:1.16rem;font-weight:600;margin-bottom:18px;">Get in touch directly or connect instantly:</p>
+      <div class="contact-social-icons">
+        <a href="mailto:bhargavmunagapati39@gmail.com" title="Gmail"><i class="fa-solid fa-envelope"></i></a>
+        <a href="https://github.com/BHARGAV-1375" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/bhargav-munagapati-8029a6275/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      </div>
+      <div class="contact-email">
+        <i class="fa-solid fa-at"></i> bhargavmunagapati39@gmail.com
+      </div>
+    </div>
+    <form class="contact-form" action="mailto:bhargavmunagapati39@gmail.com" method="post" enctype="text/plain" novalidate>
+      <div class="input-group">
+        <span><i class="fa-solid fa-user"></i></span>
+        <input type="text" id="name" name="Name" placeholder="Your Name" required />
+      </div>
+      <div class="input-group">
+        <span><i class="fa-solid fa-envelope"></i></span>
+        <input type="email" id="email" name="Email" placeholder="Email Address" required />
+      </div>
+      <div class="input-group">
+        <span><i class="fa-solid fa-comment"></i></span>
+        <textarea id="message" name="Message" rows="5" placeholder="Your Message" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Send Message</button>
+    </form>
+  </div>
+</section>
+
+
+  <!-- Footer -->
+  <footer class="footer-section">
+    <div>&copy; 2025 Munagapati Bhargav. All rights reserved.</div>
+  </footer>
+
+  <!-- Animate On Scroll JS -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({duration: 800, once: true});
+
+    // Dark mode toggle
+    const darkToggleBtn = document.getElementById('dark-mode-toggle');
+    const body = document.body;
+    const iconMoon = darkToggleBtn.querySelector('.icon-moon');
+    const iconSun = darkToggleBtn.querySelector('.icon-sun');
+    if (localStorage.getItem('dark-mode') === 'enabled') {
+      body.classList.add('dark-mode');
+      iconMoon.style.display = 'none';
+      iconSun.style.display = 'block';
+      darkToggleBtn.setAttribute('aria-pressed', 'true');
+    }
+    darkToggleBtn.addEventListener('click', () => {
+      const isDark = body.classList.toggle('dark-mode');
+      if (isDark) {
+        iconMoon.style.display = 'none';
+        iconSun.style.display = 'block';
+        darkToggleBtn.setAttribute('aria-pressed','true');
+        localStorage.setItem('dark-mode','enabled');
+      } else {
+        iconMoon.style.display = 'block';
+        iconSun.style.display = 'none';
+        darkToggleBtn.setAttribute('aria-pressed','false');
+        localStorage.setItem('dark-mode','disabled');
+      }
+    });
+
+    // Hamburger/side-drawer navigation
+    const btn = document.getElementById('menu-toggle');
+    const sd = document.getElementById('side-drawer');
+    const backdrop = document.getElementById('drawer-backdrop');
+    const closeBtn = document.getElementById('drawer-close');
+    btn.addEventListener('click', () => {
+      sd.classList.toggle('open');
+      backdrop.classList.toggle('show');
+    });
+    backdrop.addEventListener('click', () => {
+      sd.classList.remove('open');
+      backdrop.classList.remove('show');
+    });
+    closeBtn.addEventListener('click', () => {
+      sd.classList.remove('open');
+      backdrop.classList.remove('show');
+    });
+    document.querySelectorAll('.side-drawer a').forEach(link => {
+      link.addEventListener('click', () => {
+        sd.classList.remove('open');
+        backdrop.classList.remove('show');
+      });
+    });
+  </script>
+</body>
+</html>
